@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		372E414027F2124200A4319E /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E413F27F2124200A4319E /* BluetoothManager.swift */; };
+		372E414327F2137700A4319E /* QuizzerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E414227F2137700A4319E /* QuizzerViewModel.swift */; };
+		37961DED27EBC3E80016F0E9 /* BuzzerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37961DEC27EBC3E80016F0E9 /* BuzzerListView.swift */; };
+		37961DF127ED19E40016F0E9 /* BuzzerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37961DF027ED19E40016F0E9 /* BuzzerEditView.swift */; };
+		37961DF327ED301C0016F0E9 /* QuizzerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37961DF227ED301C0016F0E9 /* QuizzerView.swift */; };
+		37961DF527EE17B30016F0E9 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37961DF427EE17B30016F0E9 /* AnswerView.swift */; };
+		37961E0327F05E640016F0E9 /* SpotifyiOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37961E0127F05E610016F0E9 /* SpotifyiOS.xcframework */; };
+		37961E0427F05E640016F0E9 /* SpotifyiOS.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 37961E0127F05E610016F0E9 /* SpotifyiOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3799CEF727E6869E00A0809F /* BuzzerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3799CEF627E6869E00A0809F /* BuzzerData.swift */; };
+		37AB738627DFFA5A00B8ECC7 /* QuizzBuzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB738527DFFA5A00B8ECC7 /* QuizzBuzz.swift */; };
+		37AB738A27DFFA5D00B8ECC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37AB738927DFFA5D00B8ECC7 /* Assets.xcassets */; };
+		37AB738D27DFFA5D00B8ECC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37AB738C27DFFA5D00B8ECC7 /* Preview Assets.xcassets */; };
+		37AB739427DFFA9100B8ECC7 /* BtLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB739327DFFA9100B8ECC7 /* BtLogic.swift */; };
+		37C150BA27F065AC00D82A62 /* SpotifyRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C150B927F065AC00D82A62 /* SpotifyRemote.swift */; };
+		37C150BC27F0B3DF00D82A62 /* ConfigEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C150BB27F0B3DF00D82A62 /* ConfigEditView.swift */; };
+		37D4F03227F38A3100EBA956 /* RemoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D4F03127F38A3100EBA956 /* RemoteView.swift */; };
+		37D4F03627F38D9500EBA956 /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D4F03527F38D9500EBA956 /* TrackView.swift */; };
+		37D4F03A27F4574E00EBA956 /* AssetSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D4F03927F4574E00EBA956 /* AssetSounds.swift */; };
+		37D4F03C27F49ECA00EBA956 /* Jingles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 37D4F03B27F49EC900EBA956 /* Jingles.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		37961E0027F05E0B0016F0E9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				37961E0427F05E640016F0E9 /* SpotifyiOS.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		372E413F27F2124200A4319E /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		372E414227F2137700A4319E /* QuizzerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzerViewModel.swift; sourceTree = "<group>"; };
+		37961DEC27EBC3E80016F0E9 /* BuzzerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerListView.swift; sourceTree = "<group>"; };
+		37961DF027ED19E40016F0E9 /* BuzzerEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerEditView.swift; sourceTree = "<group>"; };
+		37961DF227ED301C0016F0E9 /* QuizzerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzerView.swift; sourceTree = "<group>"; };
+		37961DF427EE17B30016F0E9 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		37961E0127F05E610016F0E9 /* SpotifyiOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SpotifyiOS.xcframework; path = "../../../spotify-ios-sdk/SpotifyiOS.xcframework"; sourceTree = "<group>"; };
+		37961E0527F05F5E0016F0E9 /* QuizzBuzz-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuizzBuzz-Bridging-Header.h"; sourceTree = "<group>"; };
+		3799CEF627E6869E00A0809F /* BuzzerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuzzerData.swift; sourceTree = "<group>"; };
+		37AB738227DFFA5A00B8ECC7 /* QuizzBuzz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizzBuzz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37AB738527DFFA5A00B8ECC7 /* QuizzBuzz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzBuzz.swift; sourceTree = "<group>"; };
+		37AB738927DFFA5D00B8ECC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		37AB738C27DFFA5D00B8ECC7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		37AB739327DFFA9100B8ECC7 /* BtLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtLogic.swift; sourceTree = "<group>"; };
+		37AB739727E0033700B8ECC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		37C150B927F065AC00D82A62 /* SpotifyRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyRemote.swift; sourceTree = "<group>"; };
+		37C150BB27F0B3DF00D82A62 /* ConfigEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigEditView.swift; sourceTree = "<group>"; };
+		37D4F03127F38A3100EBA956 /* RemoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteView.swift; sourceTree = "<group>"; };
+		37D4F03527F38D9500EBA956 /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
+		37D4F03927F4574E00EBA956 /* AssetSounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetSounds.swift; sourceTree = "<group>"; };
+		37D4F03B27F49EC900EBA956 /* Jingles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Jingles.bundle; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37AB737F27DFFA5A00B8ECC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37961E0327F05E640016F0E9 /* SpotifyiOS.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		372E413E27F2122800A4319E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3799CEF627E6869E00A0809F /* BuzzerData.swift */,
+				372E414227F2137700A4319E /* QuizzerViewModel.swift */,
+				372E413F27F2124200A4319E /* BluetoothManager.swift */,
+				37C150B927F065AC00D82A62 /* SpotifyRemote.swift */,
+				37D4F03927F4574E00EBA956 /* AssetSounds.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		372E414127F2135300A4319E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				37961DF227ED301C0016F0E9 /* QuizzerView.swift */,
+				37D4F03127F38A3100EBA956 /* RemoteView.swift */,
+				37D4F03527F38D9500EBA956 /* TrackView.swift */,
+				37961DEC27EBC3E80016F0E9 /* BuzzerListView.swift */,
+				37961DF027ED19E40016F0E9 /* BuzzerEditView.swift */,
+				37C150BB27F0B3DF00D82A62 /* ConfigEditView.swift */,
+				37961DF427EE17B30016F0E9 /* AnswerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		37AB737927DFFA5A00B8ECC7 = {
+			isa = PBXGroup;
+			children = (
+				37AB738427DFFA5A00B8ECC7 /* QuizzBuzz */,
+				37AB738327DFFA5A00B8ECC7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		37AB738327DFFA5A00B8ECC7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37AB738227DFFA5A00B8ECC7 /* QuizzBuzz.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37AB738427DFFA5A00B8ECC7 /* QuizzBuzz */ = {
+			isa = PBXGroup;
+			children = (
+				372E414127F2135300A4319E /* Views */,
+				372E413E27F2122800A4319E /* Models */,
+				37AB739727E0033700B8ECC7 /* Info.plist */,
+				37AB738527DFFA5A00B8ECC7 /* QuizzBuzz.swift */,
+				37AB738927DFFA5D00B8ECC7 /* Assets.xcassets */,
+				37AB738B27DFFA5D00B8ECC7 /* Preview Content */,
+				37AB739327DFFA9100B8ECC7 /* BtLogic.swift */,
+				37961E0127F05E610016F0E9 /* SpotifyiOS.xcframework */,
+				37961E0527F05F5E0016F0E9 /* QuizzBuzz-Bridging-Header.h */,
+				37D4F03B27F49EC900EBA956 /* Jingles.bundle */,
+			);
+			path = QuizzBuzz;
+			sourceTree = "<group>";
+		};
+		37AB738B27DFFA5D00B8ECC7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				37AB738C27DFFA5D00B8ECC7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		37AB738127DFFA5A00B8ECC7 /* QuizzBuzz */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37AB739027DFFA5D00B8ECC7 /* Build configuration list for PBXNativeTarget "QuizzBuzz" */;
+			buildPhases = (
+				37AB737E27DFFA5A00B8ECC7 /* Sources */,
+				37AB737F27DFFA5A00B8ECC7 /* Frameworks */,
+				37AB738027DFFA5A00B8ECC7 /* Resources */,
+				37961E0027F05E0B0016F0E9 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuizzBuzz;
+			productName = QuizzBuzz;
+			productReference = 37AB738227DFFA5A00B8ECC7 /* QuizzBuzz.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37AB737A27DFFA5A00B8ECC7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					37AB738127DFFA5A00B8ECC7 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 37AB737D27DFFA5A00B8ECC7 /* Build configuration list for PBXProject "QuizzBuzz" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 37AB737927DFFA5A00B8ECC7;
+			productRefGroup = 37AB738327DFFA5A00B8ECC7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37AB738127DFFA5A00B8ECC7 /* QuizzBuzz */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		37AB738027DFFA5A00B8ECC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AB738D27DFFA5D00B8ECC7 /* Preview Assets.xcassets in Resources */,
+				37AB738A27DFFA5D00B8ECC7 /* Assets.xcassets in Resources */,
+				37D4F03C27F49ECA00EBA956 /* Jingles.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37AB737E27DFFA5A00B8ECC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37961DED27EBC3E80016F0E9 /* BuzzerListView.swift in Sources */,
+				37961DF327ED301C0016F0E9 /* QuizzerView.swift in Sources */,
+				37D4F03627F38D9500EBA956 /* TrackView.swift in Sources */,
+				37AB739427DFFA9100B8ECC7 /* BtLogic.swift in Sources */,
+				37AB738627DFFA5A00B8ECC7 /* QuizzBuzz.swift in Sources */,
+				37C150BA27F065AC00D82A62 /* SpotifyRemote.swift in Sources */,
+				37961DF527EE17B30016F0E9 /* AnswerView.swift in Sources */,
+				37D4F03227F38A3100EBA956 /* RemoteView.swift in Sources */,
+				37C150BC27F0B3DF00D82A62 /* ConfigEditView.swift in Sources */,
+				372E414027F2124200A4319E /* BluetoothManager.swift in Sources */,
+				37961DF127ED19E40016F0E9 /* BuzzerEditView.swift in Sources */,
+				3799CEF727E6869E00A0809F /* BuzzerData.swift in Sources */,
+				372E414327F2137700A4319E /* QuizzerViewModel.swift in Sources */,
+				37D4F03A27F4574E00EBA956 /* AssetSounds.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		37AB738E27DFFA5D00B8ECC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		37AB738F27DFFA5D00B8ECC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		37AB739127DFFA5D00B8ECC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"QuizzBuzz/Preview Content\"";
+				DEVELOPMENT_TEAM = TP2N3VF3FK;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/QuizzBuzz",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = QuizzBuzz/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "I need Bluetooth FFS";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "I need BT devices FFS";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itooo.quizzbuzz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QuizzBuzz/QuizzBuzz-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		37AB739227DFFA5D00B8ECC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"QuizzBuzz/Preview Content\"";
+				DEVELOPMENT_TEAM = TP2N3VF3FK;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/QuizzBuzz",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = QuizzBuzz/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "I need Bluetooth FFS";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "I need BT devices FFS";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.itooo.quizzbuzz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "QuizzBuzz/QuizzBuzz-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37AB737D27DFFA5A00B8ECC7 /* Build configuration list for PBXProject "QuizzBuzz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37AB738E27DFFA5D00B8ECC7 /* Debug */,
+				37AB738F27DFFA5D00B8ECC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37AB739027DFFA5D00B8ECC7 /* Build configuration list for PBXNativeTarget "QuizzBuzz" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37AB739127DFFA5D00B8ECC7 /* Debug */,
+				37AB739227DFFA5D00B8ECC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37AB737A27DFFA5A00B8ECC7 /* Project object */;
+}
