@@ -19,7 +19,6 @@
 		37AB738627DFFA5A00B8ECC7 /* QuizzBuzz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB738527DFFA5A00B8ECC7 /* QuizzBuzz.swift */; };
 		37AB738A27DFFA5D00B8ECC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37AB738927DFFA5D00B8ECC7 /* Assets.xcassets */; };
 		37AB738D27DFFA5D00B8ECC7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37AB738C27DFFA5D00B8ECC7 /* Preview Assets.xcassets */; };
-		37AB739427DFFA9100B8ECC7 /* BtLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB739327DFFA9100B8ECC7 /* BtLogic.swift */; };
 		37C150BA27F065AC00D82A62 /* SpotifyRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C150B927F065AC00D82A62 /* SpotifyRemote.swift */; };
 		37C150BC27F0B3DF00D82A62 /* ConfigEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C150BB27F0B3DF00D82A62 /* ConfigEditView.swift */; };
 		37D4F03227F38A3100EBA956 /* RemoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D4F03127F38A3100EBA956 /* RemoteView.swift */; };
@@ -56,7 +55,6 @@
 		37AB738527DFFA5A00B8ECC7 /* QuizzBuzz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizzBuzz.swift; sourceTree = "<group>"; };
 		37AB738927DFFA5D00B8ECC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37AB738C27DFFA5D00B8ECC7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		37AB739327DFFA9100B8ECC7 /* BtLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BtLogic.swift; sourceTree = "<group>"; };
 		37AB739727E0033700B8ECC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		37C150B927F065AC00D82A62 /* SpotifyRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyRemote.swift; sourceTree = "<group>"; };
 		37C150BB27F0B3DF00D82A62 /* ConfigEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigEditView.swift; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 				37AB738527DFFA5A00B8ECC7 /* QuizzBuzz.swift */,
 				37AB738927DFFA5D00B8ECC7 /* Assets.xcassets */,
 				37AB738B27DFFA5D00B8ECC7 /* Preview Content */,
-				37AB739327DFFA9100B8ECC7 /* BtLogic.swift */,
 				37961E0127F05E610016F0E9 /* SpotifyiOS.xcframework */,
 				37961E0527F05F5E0016F0E9 /* QuizzBuzz-Bridging-Header.h */,
 				37D4F03B27F49EC900EBA956 /* Jingles.bundle */,
@@ -220,7 +217,6 @@
 				37961DED27EBC3E80016F0E9 /* BuzzerListView.swift in Sources */,
 				37961DF327ED301C0016F0E9 /* QuizzerView.swift in Sources */,
 				37D4F03627F38D9500EBA956 /* TrackView.swift in Sources */,
-				37AB739427DFFA9100B8ECC7 /* BtLogic.swift in Sources */,
 				37AB738627DFFA5A00B8ECC7 /* QuizzBuzz.swift in Sources */,
 				37C150BA27F065AC00D82A62 /* SpotifyRemote.swift in Sources */,
 				37961DF527EE17B30016F0E9 /* AnswerView.swift in Sources */,
