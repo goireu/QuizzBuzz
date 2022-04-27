@@ -252,6 +252,12 @@ struct BuzzerPool {
         buzzPending = false
     }
     
+    mutating func setAllBuzzed() {
+        for (idx, _) in buzzers.enumerated() {
+            buzzers[idx].hasBuzzed = true
+        }
+    }
+
     mutating func resetBuzzs(clearScores: Bool = false) {
         for (idx, _) in buzzers.enumerated() {
             buzzers[idx].hasBuzzed = false

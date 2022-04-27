@@ -49,10 +49,22 @@ final class BluetoothManager: NSObject {
         centralManager.connect(peripheral)
     }
     
-    func blink(identifier: UUID) {
+    private func _ledControl(identifier: UUID, blinkCount: UInt8) {
         guard let btBuzzer = discoveredDevices[identifier] else { return }
         guard let blinkCharacteristic = btBuzzer.blinkCharacteristic else { return }
-        btBuzzer.peripheral.writeValue(Data([5]), for: blinkCharacteristic, type: .withoutResponse)
+        btBuzzer.peripheral.writeValue(Data([blinkCount]), for: blinkCharacteristic, type: .withoutResponse)
+        print("Led control \(blinkCount)")
+    }
+
+    func blink(identifier: UUID, blinkCount: Int) {
+        guard blinkCount > 0 && blinkCount < 0xFF else { return }
+        _ledControl(identifier: identifier, blinkCount: UInt8(blinkCount))
+    }
+    func ledOn(identifier: UUID) {
+        _ledControl(identifier: identifier, blinkCount: 0xFF)
+    }
+    func ledOff(identifier: UUID) {
+        _ledControl(identifier: identifier, blinkCount: 0)
     }
 }
 

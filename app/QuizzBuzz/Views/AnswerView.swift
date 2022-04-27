@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnswerView: View {
-    @Binding var buzzerPool: BuzzerPool
+    @ObservedObject var viewModel: QuizzerViewModel
     @ObservedObject var remote: SpotifyRemote
     
     var body: some View {
@@ -21,33 +21,39 @@ struct AnswerView: View {
                     TrackView(remote: remote)
                 }
                 Section(header: Text("Equipe")) {
-                    Text(buzzerPool.lastBuzz == nil ? "" : buzzerPool.lastBuzz!.teamName)
+                    Text(viewModel.buzzerPool.lastBuzz == nil ? "" : viewModel.buzzerPool.lastBuzz!.teamName)
                 }
                 Section(header: Text("Mauvaise réponse?")) {
                     Button("Pas de points") {
-                        buzzerPool.clearLastBuzz(addPoints: 0)
+                        answer(false)
+                        //buzzerPool.clearLastBuzz(addPoints: 0)
                     }
                     .foregroundColor(.accentColor)
                 }
                 Section(header: Text("Bonne réponse?")) {
                     Button("+1 point") {
-                        buzzerPool.clearLastBuzz(addPoints: 1)
+                        answer(true, addPoints: 1)
+                        //buzzerPool.clearLastBuzz(addPoints: 1)
                     }
                     .foregroundColor(.accentColor)
                     Button("+2 point") {
-                        buzzerPool.clearLastBuzz(addPoints: 2)
+                        answer(true, addPoints: 2)
+                        //buzzerPool.clearLastBuzz(addPoints: 2)
                     }
                     .foregroundColor(.accentColor)
                     Button("+3 point") {
-                        buzzerPool.clearLastBuzz(addPoints: 3)
+                        answer(true, addPoints: 3)
+                        //buzzerPool.clearLastBuzz(addPoints: 3)
                     }
                     .foregroundColor(.accentColor)
                     Button("+4 point") {
-                        buzzerPool.clearLastBuzz(addPoints: 4)
+                        answer(true, addPoints: 4)
+                        //buzzerPool.clearLastBuzz(addPoints: 4)
                     }
                     .foregroundColor(.accentColor)
                     Button("+5 point") {
-                        buzzerPool.clearLastBuzz(addPoints: 5)
+                        answer(true, addPoints: 5)
+                        //buzzerPool.clearLastBuzz(addPoints: 5)
                     }
                     .foregroundColor(.accentColor)
                 }
@@ -55,10 +61,18 @@ struct AnswerView: View {
             .font(.headline)
         }
     }
+    
+    private func answer(_ correct: Bool, addPoints: Int = 0) {
+        if correct {
+            viewModel.correctAnswer(addPoints: addPoints)
+        } else {
+            viewModel.wrongAnswer()
+        }
+    }
 }
 
 struct AnswerView_Previews: PreviewProvider {
     static var previews: some View {
-        AnswerView(buzzerPool: .constant(BuzzerPool.sampleData), remote: SpotifyRemote())
+        AnswerView(viewModel: QuizzerViewModel(), remote: SpotifyRemote())
     }
 }

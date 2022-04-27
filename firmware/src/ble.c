@@ -15,8 +15,7 @@ static const struct bt_data ad[] = {
 	BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
 	BT_DATA_BYTES(BT_DATA_UUID16_ALL,
 		      BT_UUID_16_ENCODE(MYBT_UUID_BTN_VAL),
-		      BT_UUID_16_ENCODE(BT_UUID_BAS_VAL),
-//		      BT_UUID_16_ENCODE(BT_UUID_DIS_VAL)
+		      BT_UUID_16_ENCODE(BT_UUID_BAS_VAL)
 			  )
 };
 
@@ -26,7 +25,7 @@ static void ble_button_ccc_cfg_changed(const struct bt_gatt_attr *attr,
 {
 	ARG_UNUSED(attr);
 	ble_button_notify_enabled = (value == BT_GATT_CCC_NOTIFY);
-	printk("[BLE] Button notifications %s", ble_button_notify_enabled ? "enabled" : "disabled");
+	printk("[BLE] Button notifications %s\n", ble_button_notify_enabled ? "enabled" : "disabled");
 }
 
 static ssize_t ble_button_read_level(struct bt_conn *conn,
@@ -43,7 +42,7 @@ ssize_t ble_led_activate(struct bt_conn *conn,
 {
 	printk("[BLE] Led was activated\n");
 	if (len < 1)
-		led_activate(LED_BLINK_CYCLES);
+		led_activate(LED_BLINK_CYCLES_DFLT);
 	else
 	{
 		unsigned char *val = (unsigned char *)buf;
@@ -73,7 +72,7 @@ void ble_button_notify()
 		printk("[BLE] Notifying new button value\n");
 		rc = bt_gatt_notify(NULL, &ble_button_svc.attrs[1], NULL, 0);
 		if (rc && rc != -ENOTCONN)
-			printk("[BLE] Failed to send button status notification");
+			printk("[BLE] Failed to send button status notification\n");
 	}
 }
 
@@ -83,25 +82,28 @@ void ble_battery_notify(uint8_t centivolts)
 	bt_bas_set_battery_level(centivolts);
 }
 
-static void ble_auth_cancel(struct bt_conn *conn)
+// Catch connect/disconnect events
+static bool _ble_is_connected = false;
+bool ble_is_connected(void)
 {
-	char addr[BT_ADDR_LE_STR_LEN];
-
-	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
-	printk("[BLE] Pairing canceled: %s\n", addr);
+	return _ble_is_connected;
+}
+void ble_connected(struct bt_conn *conn, uint8_t err)
+{
+	app_reset_keep_alive(KEEPALIVE_CONNECTED); // Reset keepalive timeout
+	printk("[BLE] Connected!\n");
+	_ble_is_connected = true;
+}
+void ble_disconnected(struct bt_conn *conn, uint8_t reason)
+{
+	app_reset_keep_alive(KEEPALIVE_UNCONNECTED); // Reset keepalive timeout
+	printk("[BLE] Disconnected!\n");
+	_ble_is_connected = false;
 }
 
-static void ble_pairing_complete(struct bt_conn *conn, bool bonded)
-{
-	char addr[BT_ADDR_LE_STR_LEN];
-
-	bt_addr_le_to_str(bt_conn_get_dst(conn), addr, sizeof(addr));
-	printk("[BLE] Pairing complete: %s\n", addr);
-}
-
-static struct bt_conn_auth_cb ble_auth_cb_display = {
-	.cancel = ble_auth_cancel,
-	.pairing_complete = ble_pairing_complete,
+static struct bt_conn_cb ble_conn_cb = {
+	.connected = ble_connected,
+	.disconnected = ble_disconnected
 };
 
 bool ble_init()
@@ -116,6 +118,8 @@ bool ble_init()
 
 	printk("[BLE] Bluetooth initialized\n");
 
+	bt_conn_cb_register(&ble_conn_cb);
+
 	err = bt_le_adv_start(BT_LE_ADV_CONN_NAME, ad, ARRAY_SIZE(ad), NULL, 0);
 	if (err) {
 		printk("[BLE] Advertising failed to start (err %d)\n", err);
@@ -123,12 +127,6 @@ bool ble_init()
 	}
 
 	printk("[BLE] Advertising successfully started\n");
-
-	err = bt_conn_auth_cb_register(&ble_auth_cb_display);
-	if (err) {
-		printk("[BLE] Failed to register callbacks (err %d)\n", err);
-		return false;
-	}
 
     return true;
 }

@@ -17,19 +17,57 @@ final class QuizzerViewModel: ObservableObject {
     init(buzzerPool: BuzzerPool = BuzzerPool()) {
         self.buzzerPool = buzzerPool
     }
-    /* Shouldn't be needed
-     deinit {
-     cancellables.cancel()
-     }*/
     
     private var isPlaying = false
     
-    func blink() {
+    func lastBuzzerLedBlink(blinkCount: Int) {
         if let buzzer = buzzerPool.lastBuzz {
-            manager.blink(identifier: buzzer.id)
+            manager.blink(identifier: buzzer.id, blinkCount: blinkCount)
         }
     }
+    func lastBuzzerLedOn() {
+        if let buzzer = buzzerPool.lastBuzz {
+            manager.ledOn(identifier: buzzer.id)
+        }
+    }
+    func lastBuzzerLedOff() {
+        if let buzzer = buzzerPool.lastBuzz {
+            manager.ledOff(identifier: buzzer.id)
+        }
+    }
+    func allBuzzerLedOn() {
+        buzzerPool.buzzers.forEach { buzzer in
+            manager.ledOn(identifier: buzzer.id)
+        }
+    }
+    func allBuzzerLedOff() {
+        buzzerPool.buzzers.forEach { buzzer in
+            manager.ledOff(identifier: buzzer.id)
+        }
+    }
+
+    func resetBuzzs(clearScores: Bool = false) {
+        allBuzzerLedOff();
+        // Reset internal state so they can play again
+        buzzerPool.resetBuzzs(clearScores: clearScores)
+    }
     
+    func correctAnswer(addPoints: Int) {
+        allBuzzerLedOn()
+        buzzerPool.setAllBuzzed()
+        buzzerPool.clearLastBuzz(addPoints: addPoints)
+    }
+    func wrongAnswer() {
+        // No need to clear the hasBuzzed flag of the buzzer,
+        // it was not set at buzz time if allowMultipleBuzz is true
+        if buzzerPool.allowMultipleBuzz {
+            lastBuzzerLedOff()
+        } else {
+            lastBuzzerLedOn()
+        }
+        buzzerPool.clearLastBuzz(addPoints: 0)
+    }
+
     private var started = false;
     func start(playingSubject: PassthroughSubject<Bool, Never>) {
         guard started == false else { return }

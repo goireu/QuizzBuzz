@@ -24,6 +24,7 @@ void button_pressed(const struct device *dev, struct gpio_callback *cb,
 		    uint32_t pins)
 {
 	printk("[BTN] Button pressed\n");
+	app_reset_keep_alive(KEEPALIVE_CONNECTED); // Reset keepalive timeout
 	ble_button_notify();
 }
 

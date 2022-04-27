@@ -13,14 +13,18 @@
 BUILD_ASSERT(DT_NODE_HAS_COMPAT(DT_CHOSEN(zephyr_console), zephyr_cdc_acm_uart),
 	     "Console device is not ACM CDC UART device");
 
+void app_process();
+
 void main(void)
 {
+	// TODO: init power hold-up mechanics
+
+#ifdef DEBUG
 	if (usb_enable(NULL)) {
 		return;
 	}
-	printk("USB initialized\n");
+	printk("[MAIN] USB initialized\n");
 
-#ifdef DEBUG
 	// Wait for debug port to be opened
 	const struct device *dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
 	uint32_t dtr = 0;
@@ -39,12 +43,42 @@ void main(void)
 	if (!battery_init())
 		NVIC_SystemReset();
 
-	while (1)
+	while (app_is_alive())
 	{
+		app_process();
 		battery_process();
 		led_process();
 
 		// Get back to sleep for 100ms
 		k_sleep(K_MSEC(100));
 	}
+
+	led_set(false);
+	printk("[MAIN] Shutting down\n");
+	// TODO: power down
+	NVIC_SystemReset();
+}
+
+static unsigned long app_timeout = KEEPALIVE_UNCONNECTED;
+void app_reset_keep_alive(unsigned long timeout)
+{
+	app_timeout = timeout;
+}
+
+void app_process()
+{
+	static char prescaler = 10; // App tick is 100ms
+
+	prescaler--;
+	if (!prescaler)
+	{
+		prescaler = 10;
+		if (app_timeout)
+			app_timeout--;
+	}
+}
+
+bool app_is_alive()
+{
+	return app_timeout != 0;
 }

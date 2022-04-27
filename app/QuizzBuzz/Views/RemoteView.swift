@@ -25,9 +25,9 @@ struct RemoteView: View {
             .buttonStyle(BorderlessButtonStyle())
             Spacer()
             Button() {
+                viewModel.resetBuzzs()
                 remote.next()
                 print("Next")
-                viewModel.buzzerPool.resetBuzzs()
             } label: {
                 Image(systemName: "forward.end.alt.fill")
                     .resizable().frame(width: 24, height: 24)

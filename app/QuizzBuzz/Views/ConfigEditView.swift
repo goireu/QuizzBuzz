@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ConfigEditView: View {
-    @Binding var buzzerPool: BuzzerPool
+    @ObservedObject var viewModel: QuizzerViewModel
     @Binding var remoteConfig: SpotifyRemoteConfig
     
     var body: some View {
         Form {
             Section(footer: Text("Si cette option est activée, chaque équipe peut buzzer plusieurs fois par chanson.")) {
-                Toggle("Buzz multiples autorisés", isOn: $buzzerPool.allowMultipleBuzz)
+                Toggle("Buzz multiples autorisés", isOn: $viewModel.buzzerPool.allowMultipleBuzz)
             }
             Section(footer: Text("Si cette option est activée, les chansons démarrent aléatoirement au milieu du morceau. Cette option n'est accessible qu'une fois Spotify connecté.")) {
                 Toggle("Début de piste aléatoire", isOn: $remoteConfig.seekToRandom)
@@ -24,7 +24,7 @@ struct ConfigEditView: View {
                 HStack {
                     Spacer()
                     Button("Réinitialiser le jeu") {
-                        buzzerPool.resetBuzzs(clearScores: true)
+                        viewModel.resetBuzzs(clearScores: true)
                     }
                     .font(.headline)
                     .foregroundColor(.red)
@@ -37,6 +37,6 @@ struct ConfigEditView: View {
 
 struct ConfigEditView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigEditView(buzzerPool: .constant(BuzzerPool.sampleData), remoteConfig: .constant(SpotifyRemoteConfig()))
+        ConfigEditView(viewModel: QuizzerViewModel(), remoteConfig: .constant(SpotifyRemoteConfig()))
     }
 }

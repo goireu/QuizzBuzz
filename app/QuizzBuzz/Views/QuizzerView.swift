@@ -34,7 +34,7 @@ struct QuizzerView: View {
                     HStack {
                         Spacer()
                         Button("Remettre les équipes en jeu") {
-                            viewModel.buzzerPool.resetBuzzs()
+                            viewModel.resetBuzzs()
                         }
                         .font(.headline)
                         .foregroundColor(.accentColor)
@@ -53,7 +53,7 @@ struct QuizzerView: View {
                         Spacer()
                     }
                 }
-                NavigationLink(destination: ConfigEditView(buzzerPool: $viewModel.buzzerPool, remoteConfig: $remote.config)) {
+                NavigationLink(destination: ConfigEditView(viewModel: viewModel, remoteConfig: $remote.config)) {
                     HStack {
                         Spacer()
                         Text("Configuration du jeu")
@@ -65,10 +65,10 @@ struct QuizzerView: View {
             }
         }
         .sheet(isPresented: $viewModel.buzzerPool.buzzPending) {
-            AnswerView(buzzerPool: $viewModel.buzzerPool, remote: remote)
+            AnswerView(viewModel: viewModel, remote: remote)
                 .onAppear() {
                     remote.pause()
-                    viewModel.blink()
+                    viewModel.lastBuzzerLedBlink(blinkCount: 30)
                     AssetSounds.instance.play(name: viewModel.buzzerPool.lastBuzz?.teamSound ?? "")
                 }
         }
@@ -84,8 +84,6 @@ struct QuizzerView: View {
             viewModel.start(playingSubject: remote.playingSubject)
         }
     }
-    
-    
 }
 
 struct QuizzerView_Previews: PreviewProvider {
