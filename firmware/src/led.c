@@ -64,20 +64,17 @@ void led_set(bool on)
 void led_activate(unsigned char cycles)
 {
     // Switch off instantly
-    if (!cycles)
-    {
+    if (!cycles) {
         led_set(false);
         led_blink_counter = 0; // Stop the blinking process
     }
     // Switch on without blinking
-    else if (cycles == 0xFF)
-    {
+    else if (cycles == 0xFF) {
         led_set(true);
         led_blink_counter = 0; // Stop the blinking process
     }
     // For all other values, start blinking the required time
-    else
-    {
+    else {
         led_prescaler = 0; // Trigger led blinking instantly
         led_blink_counter = cycles * 2; // Let led blink
     }
@@ -86,18 +83,15 @@ void led_activate(unsigned char cycles)
 void led_process(void)
 {
     // Blink quickly while BLE is not yet paired
-    if (!ble_is_connected())
-    {
+    if (!ble_is_connected()) {
         led_set(!led_on);
     }
-    else // Perform what Quizzer app told us to do
-    {
-        if (!led_prescaler)
-        {
+    // Perform what Quizzer app told us to do
+    else  {
+        if (!led_prescaler) {
             led_prescaler = LED_BLINK_INTERVAL;
 
-            if (led_blink_counter)
-            {
+            if (led_blink_counter) {
                 printk("LED BlINK %s\n", led_on ? "on" : "off");
                 led_blink_counter--;
                 led_set(!led_on);

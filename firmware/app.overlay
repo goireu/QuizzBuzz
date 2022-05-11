@@ -17,6 +17,10 @@
 			gpios = <&gpio1 10 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
 			label = "Buzzer pushbutton";
 		};
+		pwrsw0: pwrsw_0 {
+			gpios = <&gpio1 13 0>;
+			label = "Power switch";
+		};
 	};
 	leds {
 		compatible = "gpio-leds";
@@ -28,6 +32,7 @@
 
 	aliases {
 		sw1 = &button1;
+		psw0 = &pwrsw0;
 		led1 = &led2_red;
 	};
 

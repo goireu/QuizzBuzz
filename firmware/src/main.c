@@ -17,7 +17,8 @@ void app_process();
 
 void main(void)
 {
-	// TODO: init power hold-up mechanics
+	if (!pwr_init())
+		NVIC_SystemReset();
 
 #ifdef DEBUG
 	if (usb_enable(NULL)) {
@@ -53,10 +54,10 @@ void main(void)
 		k_sleep(K_MSEC(100));
 	}
 
-	led_set(false);
 	printk("[MAIN] Shutting down\n");
-	// TODO: power down
-	NVIC_SystemReset();
+	led_set(false);
+	if (!pwr_down())
+		NVIC_SystemReset();
 }
 
 static unsigned long app_timeout = KEEPALIVE_UNCONNECTED;
@@ -70,8 +71,7 @@ void app_process()
 	static char prescaler = 10; // App tick is 100ms
 
 	prescaler--;
-	if (!prescaler)
-	{
+	if (!prescaler) {
 		prescaler = 10;
 		if (app_timeout)
 			app_timeout--;

@@ -12,16 +12,13 @@
 #if !DT_NODE_HAS_STATUS(SW1_NODE, okay)
 #error "Unsupported board: sw1 devicetree alias is not defined"
 #endif
-static const struct gpio_dt_spec button0 = GPIO_DT_SPEC_GET_OR(SW0_NODE, gpios,
-							      {0});
-static const struct gpio_dt_spec button1 = GPIO_DT_SPEC_GET_OR(SW1_NODE, gpios,
-							      {0});
+static const struct gpio_dt_spec button0 = GPIO_DT_SPEC_GET_OR(SW0_NODE, gpios, {0});
+static const struct gpio_dt_spec button1 = GPIO_DT_SPEC_GET_OR(SW1_NODE, gpios, {0});
 static struct gpio_callback button0_cb_data;
 static struct gpio_callback button1_cb_data;
 
 void ble_button_notify();
-void button_pressed(const struct device *dev, struct gpio_callback *cb,
-		    uint32_t pins)
+void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins)
 {
 	printk("[BTN] Button pressed\n");
 	app_reset_keep_alive(KEEPALIVE_CONNECTED); // Reset keepalive timeout

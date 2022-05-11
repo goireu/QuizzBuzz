@@ -27,3 +27,6 @@ bool led_init(void);
 void led_set(bool on);
 void led_activate(uint8_t cycles);
 void led_process(void);
+
+bool pwr_init(void);
+bool pwr_down(void);
