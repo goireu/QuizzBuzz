@@ -37,7 +37,7 @@ struct BuzzerEditView: View {
             }
             Section(header: Text("Jingle")) {
                 Picker("Choix du jingle", selection: $soundName) {
-                    ForEach(AssetSounds.instance.names, id: \.self) { s in
+                    ForEach(AssetSounds.instance.names.sorted(), id: \.self) { s in
                         Text(s)
                     }
                 }.onChange(of: soundName) { (name) in
