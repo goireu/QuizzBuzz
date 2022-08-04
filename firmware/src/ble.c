@@ -1,11 +1,19 @@
 #include "app.h"
 
+#include <sys/byteorder.h>
+
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
+#include <bluetooth/hci_vs.h>
 #include <bluetooth/conn.h>
 #include <bluetooth/uuid.h>
 #include <bluetooth/gatt.h>
 #include <bluetooth/services/bas.h>
+
+static struct bt_conn *default_conn = NULL;
+static uint16_t default_conn_handle;
+static void get_tx_power(uint8_t handle_type, uint16_t handle, int8_t *tx_pwr_lvl);
+static void set_tx_power(uint8_t handle_type, uint16_t handle, int8_t tx_pwr_lvl);
 
 #define MYBT_UUID_BTN_VAL			0x4242 // Custom service ID
 #define MYBT_UUID_BUTTON_PRESSED	0x4243 // Custom characteristic ID
@@ -90,9 +98,27 @@ bool ble_is_connected(void)
 }
 void ble_connected(struct bt_conn *conn, uint8_t err)
 {
+	int8_t txp;
+	
+	if (err)
+		return;
+
 	app_reset_keep_alive(KEEPALIVE_CONNECTED); // Reset keepalive timeout
 	printk("[BLE] Connected!\n");
 	_ble_is_connected = true;
+
+	default_conn = bt_conn_ref(conn);
+	int ret = bt_hci_get_conn_handle(default_conn, &default_conn_handle);
+	if (ret) {
+		printk("No connection handle (err %d)\n", ret);
+	} else {
+		/* Send first at the default selected power */
+		get_tx_power(BT_HCI_VS_LL_HANDLE_TYPE_CONN, default_conn_handle, &txp);
+		printk("Connection (%d) - Initial Tx Power = %d\n", default_conn_handle, txp);
+		set_tx_power(BT_HCI_VS_LL_HANDLE_TYPE_CONN, default_conn_handle, 8);
+		get_tx_power(BT_HCI_VS_LL_HANDLE_TYPE_CONN, default_conn_handle, &txp);
+		printk("Connection (%d) - Tx Power = %d\n", default_conn_handle, txp);
+	}
 }
 void ble_disconnected(struct bt_conn *conn, uint8_t reason)
 {
@@ -129,4 +155,70 @@ bool ble_init()
 	printk("[BLE] Advertising successfully started\n");
 
     return true;
+}
+
+static void set_tx_power(uint8_t handle_type, uint16_t handle, int8_t tx_pwr_lvl)
+{
+	struct bt_hci_cp_vs_write_tx_power_level *cp;
+	struct bt_hci_rp_vs_write_tx_power_level *rp;
+	struct net_buf *buf, *rsp = NULL;
+	int err;
+
+	buf = bt_hci_cmd_create(BT_HCI_OP_VS_WRITE_TX_POWER_LEVEL, sizeof(*cp));
+	if (!buf) {
+		printk("Unable to allocate command buffer\n");
+		return;
+	}
+
+	cp = net_buf_add(buf, sizeof(*cp));
+	cp->handle = sys_cpu_to_le16(handle);
+	cp->handle_type = handle_type;
+	cp->tx_power_level = tx_pwr_lvl;
+
+	err = bt_hci_cmd_send_sync(BT_HCI_OP_VS_WRITE_TX_POWER_LEVEL, buf, &rsp);
+	if (err) {
+		uint8_t reason = rsp ?
+			((struct bt_hci_rp_vs_write_tx_power_level *)
+			  rsp->data)->status : 0;
+		printk("Set Tx power err: %d reason 0x%02x\n", err, reason);
+		return;
+	}
+
+	rp = (void *)rsp->data;
+	printk("Actual Tx Power: %d\n", rp->selected_tx_power);
+
+	net_buf_unref(rsp);
+}
+
+static void get_tx_power(uint8_t handle_type, uint16_t handle, int8_t *tx_pwr_lvl)
+{
+	struct bt_hci_cp_vs_read_tx_power_level *cp;
+	struct bt_hci_rp_vs_read_tx_power_level *rp;
+	struct net_buf *buf, *rsp = NULL;
+	int err;
+
+	*tx_pwr_lvl = 0xFF;
+	buf = bt_hci_cmd_create(BT_HCI_OP_VS_READ_TX_POWER_LEVEL, sizeof(*cp));
+	if (!buf) {
+		printk("Unable to allocate command buffer\n");
+		return;
+	}
+
+	cp = net_buf_add(buf, sizeof(*cp));
+	cp->handle = sys_cpu_to_le16(handle);
+	cp->handle_type = handle_type;
+
+	err = bt_hci_cmd_send_sync(BT_HCI_OP_VS_READ_TX_POWER_LEVEL, buf, &rsp);
+	if (err) {
+		uint8_t reason = rsp ?
+			((struct bt_hci_rp_vs_read_tx_power_level *)
+			  rsp->data)->status : 0;
+		printk("Read Tx power err: %d reason 0x%02x\n", err, reason);
+		return;
+	}
+
+	rp = (void *)rsp->data;
+	*tx_pwr_lvl = rp->tx_power_level;
+
+	net_buf_unref(rsp);
 }
