@@ -40,7 +40,8 @@ class AssetSounds {
 
     func play(name: String) {
         if let soundID = sounds[name] {
-            AudioServicesPlaySystemSound(soundID)
+            AudioServicesPlayAlertSoundWithCompletion(soundID, {})
+            //AudioServicesPlaySystemSound(soundID)
         }
     }
 }
