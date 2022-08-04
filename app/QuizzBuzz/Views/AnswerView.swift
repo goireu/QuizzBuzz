@@ -26,34 +26,28 @@ struct AnswerView: View {
                 Section(header: Text("Mauvaise réponse?")) {
                     Button("Pas de points") {
                         answer(false)
-                        //buzzerPool.clearLastBuzz(addPoints: 0)
                     }
                     .foregroundColor(.accentColor)
                 }
                 Section(header: Text("Bonne réponse?")) {
                     Button("+1 point") {
                         answer(true, addPoints: 1)
-                        //buzzerPool.clearLastBuzz(addPoints: 1)
                     }
                     .foregroundColor(.accentColor)
                     Button("+2 point") {
                         answer(true, addPoints: 2)
-                        //buzzerPool.clearLastBuzz(addPoints: 2)
                     }
                     .foregroundColor(.accentColor)
                     Button("+3 point") {
                         answer(true, addPoints: 3)
-                        //buzzerPool.clearLastBuzz(addPoints: 3)
                     }
                     .foregroundColor(.accentColor)
                     Button("+4 point") {
                         answer(true, addPoints: 4)
-                        //buzzerPool.clearLastBuzz(addPoints: 4)
                     }
                     .foregroundColor(.accentColor)
                     Button("+5 point") {
                         answer(true, addPoints: 5)
-                        //buzzerPool.clearLastBuzz(addPoints: 5)
                     }
                     .foregroundColor(.accentColor)
                 }
