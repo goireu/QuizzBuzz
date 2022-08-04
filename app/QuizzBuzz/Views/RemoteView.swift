@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RemoteView: View {
-    @ObservedObject var viewModel: QuizzerViewModel
     @ObservedObject var remote: SpotifyRemote
     
     var body: some View {
@@ -25,7 +24,6 @@ struct RemoteView: View {
             .buttonStyle(BorderlessButtonStyle())
             Spacer()
             Button() {
-                viewModel.resetBuzzs()
                 remote.next()
                 print("Next")
             } label: {
@@ -42,6 +40,6 @@ struct RemoteView: View {
 
 struct RemoteView_Previews: PreviewProvider {
     static var previews: some View {
-        RemoteView(viewModel: QuizzerViewModel(), remote: SpotifyRemote())
+        RemoteView(remote: SpotifyRemote())
     }
 }

@@ -29,8 +29,9 @@ class SpotifyRemote : NSObject, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDel
         return appRemote
     }()
     
-    public var playingSubject: PassthroughSubject<Bool, Never> = .init()
-    
+    public var playingSubject: PassthroughSubject<Bool, Never> = .init() // Sends an event when player is paused/unpaused
+    public var newTrackSubject: PassthroughSubject<Bool, Never> = .init() // Sends an event when a new track starts, no need for Bool argument but I don't know how not to have it
+
     @Published public var hasError = false
     @Published public var errorMessage = ""
     func showError(_ context: String, error: Error? = nil) {
@@ -141,6 +142,7 @@ class SpotifyRemote : NSObject, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDel
                 appRemote.playerAPI?.seek(toPosition: seekPos, callback: defaultCallback)
             }
             previousTrackUri = playerState.track.uri
+            newTrackSubject.send(true)
         }
         print("REMOTE PLAYER STATE CHANGED")
         // Notify view model

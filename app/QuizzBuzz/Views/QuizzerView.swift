@@ -16,7 +16,7 @@ struct QuizzerView: View {
         List {
             Section(header: Text("Télécommande")) {
                 TrackView(remote: remote)
-                RemoteView(viewModel: viewModel, remote: remote)
+                RemoteView(remote: remote)
             }
             Section(header: Text("Equipes en jeu")) {
                 ForEach(viewModel.buzzerPool.playingBuzzers) { buzzer in
@@ -81,7 +81,7 @@ struct QuizzerView: View {
             }
         }
         .onAppear {
-            viewModel.start(playingSubject: remote.playingSubject)
+            viewModel.start(playingSubject: remote.playingSubject, newTrackSubject: remote.newTrackSubject)
         }
     }
 }

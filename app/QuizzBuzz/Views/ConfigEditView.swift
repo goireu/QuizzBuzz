@@ -20,6 +20,13 @@ struct ConfigEditView: View {
                 Toggle("Début de piste aléatoire", isOn: $remoteConfig.seekToRandom)
                     .disabled(!remoteConfig.canSeek)
             }
+            Section(footer: Text("Pour chaque point d'écart avec le score le plus bas, cette latence sera appliquée en handicap.")) {
+                HStack {
+                    Text("Handicap:")
+                    Slider(value: $viewModel.buzzerPool.handicapInMs, in: 0...500, step: 50)
+                    Text("\(Int(viewModel.buzzerPool.handicapInMs)) ms")
+                }
+            }
             Section(footer: Text("Remet tous les joueurs en jeu et les scores à zéro.")) {
                 HStack {
                     Spacer()

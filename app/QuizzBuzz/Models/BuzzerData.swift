@@ -133,6 +133,11 @@ struct Buzzer : Identifiable {
         guard let voltage = batteryVoltage else { return "?? V"}
         return "\(voltage) V"
     }
+
+    var teamPointsInt: Int {
+        guard let points = Int(teamPoints) else { return 0 }
+        return points
+    }
 }
 
 extension Buzzer {
@@ -154,6 +159,7 @@ struct BuzzerPool {
     var lastBuzz: Buzzer? // Same as above, except it will be updated only if value is nil (used for stopping the music)
     var buzzPending: Bool // TODO: here because sheet isPresenting complains if not a $Bool, might be improved
     var allowMultipleBuzz: Bool
+    var handicapInMs: Float // Add a delay when a buzz is received, delay is: (buzzerPoints - maxPoints) * handicapInMs.
     
     var buzzCount: Int {
         return buzzers.filter { $0.hasBuzzed }.count
@@ -169,6 +175,7 @@ struct BuzzerPool {
         self.buzzers = buzzers
         self.buzzPending = false
         self.allowMultipleBuzz = false
+        self.handicapInMs = 0
     }
     
     private var _plistData = Data()

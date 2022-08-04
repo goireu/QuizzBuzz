@@ -19,6 +19,7 @@ final class QuizzerViewModel: ObservableObject {
     }
     
     private var isPlaying = false
+    private var trackStartTime: Date = Date()
     
     func lastBuzzerLedBlink(blinkCount: Int) {
         if let buzzer = buzzerPool.lastBuzz {
@@ -67,10 +68,53 @@ final class QuizzerViewModel: ObservableObject {
         }
         buzzerPool.clearLastBuzz(addPoints: 0)
     }
+    
+    private var gameMinPoints: Int {
+        // Compute minPoints
+        var minPoints = 999999999 // Start with a very high number to make the calculus easier (ok, this aint perfect but will do the job)
+        buzzerPool.playingBuzzers.forEach { buzzer in
+            if buzzer.teamPointsInt < minPoints {
+                minPoints = buzzer.teamPointsInt
+            }
+        }
+        return minPoints
+    }
+    private func buzzerHandicapDelay(buzzerID: UUID) -> Double {
+        guard let idx = buzzerPool.buzzerIndex(buzzerID: buzzerID) else { return 0 }
+        return buzzerHandicapDelay(teamPointsInt: buzzerPool.buzzers[idx].teamPointsInt)
+    }
+    private func buzzerHandicapDelay(teamPointsInt: Int) -> Double {
+        return Double(teamPointsInt - gameMinPoints) * Double(buzzerPool.handicapInMs / 1000)
+    }
+    
+    private func onNewTrack() {
+        buzzerPool.resetBuzzs(clearScores: false)
+        if buzzerPool.handicapInMs > 0 {
+            // Store current time
+            trackStartTime = Date()
+            // Switch on/off leds and start timer for buzzers with handicap
+            buzzerPool.playingBuzzers.forEach { buzzer in
+                let handicapDelay = buzzerHandicapDelay(teamPointsInt: buzzer.teamPointsInt)
+                // If there is a handicap delay, keep led on until delay is expired
+                if (handicapDelay > 0) {
+                    self.manager.ledOn(identifier: buzzer.id)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + handicapDelay) {
+                        self.manager.ledOff(identifier: buzzer.id)
+                    }
+                }
+                // Else, no handicap, switch off the led
+                else {
+                    self.manager.ledOff(identifier: buzzer.id)
+                }
+            }
+        }
+    }
 
     private var started = false;
-    func start(playingSubject: PassthroughSubject<Bool, Never>) {
+    func start(playingSubject: PassthroughSubject<Bool, Never>, newTrackSubject: PassthroughSubject<Bool, Never>) {
         guard started == false else { return }
+        started = true
+
         buzzerPool.load()
 
         // Remote is playing music
@@ -80,6 +124,14 @@ final class QuizzerViewModel: ObservableObject {
         }
         .store(in: &cancellables)
         
+        // New track started, store timestamp, switch on 'X' leds, initiate handicap timers
+        newTrackSubject.sink { [weak self] in
+            if $0 { // $0 is always true, I just don't know how to get rid of compiler error
+                self?.onNewTrack()
+            }
+        }
+        .store(in: &cancellables)
+
         // Manager state changed
         manager.stateSubject.sink { [weak self] state in
             self?.btState = state
@@ -115,13 +167,15 @@ final class QuizzerViewModel: ObservableObject {
         // Device Buzz!
         manager.buzzSubject.sink { [weak self] in
             if self != nil && self!.isPlaying {
-                self?.buzzerPool.buzz(buzzerID: $0)
+                // The buzzer is not allowed to buzz before its handicap time
+                if self!.trackStartTime.timeIntervalSinceNow > self!.buzzerHandicapDelay(buzzerID: $0) {
+                    self!.buzzerPool.buzz(buzzerID: $0)
+                }
             }
             print("DEVICE \($0) BUZZED!")
         }
         .store(in: &cancellables)
 
         manager.start()
-        started = true
     }
 }
