@@ -58,6 +58,9 @@ void main(void)
 	led_set(false);
 	if (!pwr_down())
 		NVIC_SystemReset();
+
+	// For non patched modules
+	k_sleep(K_MSEC(5000));
 }
 
 static unsigned long app_timeout = KEEPALIVE_UNCONNECTED;
