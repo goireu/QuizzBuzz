@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ConfigEditView: View {
     @ObservedObject var viewModel: QuizzerViewModel
-    @Binding var remoteConfig: SpotifyRemoteConfig
     
     var body: some View {
         Form {
@@ -17,10 +16,10 @@ struct ConfigEditView: View {
                 Toggle("Buzz multiples autorisés", isOn: $viewModel.buzzerPool.allowMultipleBuzz)
             }
             Section(footer: Text("Si cette option est activée, les chansons démarrent aléatoirement au milieu du morceau. Cette option n'est accessible qu'une fois Spotify connecté.")) {
-                Toggle("Début de piste aléatoire", isOn: $remoteConfig.seekToRandom)
-                    .disabled(!remoteConfig.canSeek)
+                Toggle("Début de piste aléatoire", isOn: $viewModel.remote.config.seekToRandom)
+                    .disabled(!viewModel.remote.config.canSeek)
             }
-            Section(footer: Text("Pour chaque point d'écart avec le score le plus bas, cette latence sera appliquée en handicap.")) {
+            Section(footer: Text("Pour chaque point d'écart avec le score le plus bas, le buzzer sera désactivé en début de chanson de ce délai.")) {
                 HStack {
                     Text("Handicap:")
                     Slider(value: $viewModel.buzzerPool.handicapInMs, in: 0...500, step: 50)
@@ -44,6 +43,6 @@ struct ConfigEditView: View {
 
 struct ConfigEditView_Previews: PreviewProvider {
     static var previews: some View {
-        ConfigEditView(viewModel: QuizzerViewModel(), remoteConfig: .constant(SpotifyRemoteConfig()))
+        ConfigEditView(viewModel: QuizzerViewModel())
     }
 }

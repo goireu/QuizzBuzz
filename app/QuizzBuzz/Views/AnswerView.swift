@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AnswerView: View {
     @ObservedObject var viewModel: QuizzerViewModel
-    @ObservedObject var remote: SpotifyRemote
     
     var body: some View {
         VStack {
@@ -18,7 +17,7 @@ struct AnswerView: View {
                 .padding(24)
             List {
                 Section(header: Text("Lecture en cours")) {
-                    TrackView(remote: remote)
+                    TrackView(remote: viewModel.remote)
                 }
                 Section(header: Text("Equipe")) {
                     Text(viewModel.buzzerPool.lastBuzz == nil ? "" : viewModel.buzzerPool.lastBuzz!.teamName)
@@ -67,6 +66,6 @@ struct AnswerView: View {
 
 struct AnswerView_Previews: PreviewProvider {
     static var previews: some View {
-        AnswerView(viewModel: QuizzerViewModel(), remote: SpotifyRemote())
+        AnswerView(viewModel: QuizzerViewModel())
     }
 }

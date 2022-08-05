@@ -10,6 +10,7 @@ final class QuizzerViewModel: ObservableObject {
     
     @Published var btState: CBManagerState = .unknown
     @Published var buzzerPool: BuzzerPool
+    @Published var remote = SpotifyRemote()
     
     private lazy var manager: BluetoothManager = .shared
     private lazy var cancellables: Set<AnyCancellable> = .init()
@@ -111,21 +112,21 @@ final class QuizzerViewModel: ObservableObject {
     }
 
     private var started = false;
-    func start(playingSubject: PassthroughSubject<Bool, Never>, newTrackSubject: PassthroughSubject<Bool, Never>) {
+    func start() {
         guard started == false else { return }
         started = true
 
         buzzerPool.load()
 
         // Remote is playing music
-        playingSubject.sink { [weak self] in
+        remote.playingSubject.sink { [weak self] in
             self?.isPlaying = $0
             print("REMOTE \($0 ? "" : "NOT") PLAYING")
         }
         .store(in: &cancellables)
         
         // New track started, store timestamp, switch on 'X' leds, initiate handicap timers
-        newTrackSubject.sink { [weak self] in
+        remote.newTrackSubject.sink { [weak self] in
             if $0 { // $0 is always true, I just don't know how to get rid of compiler error
                 self?.onNewTrack()
             }

@@ -13,16 +13,11 @@ class MyData : ObservableObject {
 
 @main
 struct QuizzBuzz: App {
-    @StateObject var remote = SpotifyRemote()
-
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                QuizzerView(remote: remote)
+                QuizzerView()
                     .navigationBarHidden(true)
-                    .onOpenURL { url in
-                        remote.connect(from: url)
-                    }
             }
         }
     }

@@ -10,13 +10,12 @@ import AVFoundation
 
 struct QuizzerView: View {
     @StateObject var viewModel = QuizzerViewModel()
-    @ObservedObject var remote: SpotifyRemote
     
     var body: some View {
         List {
             Section(header: Text("Télécommande")) {
-                TrackView(remote: remote)
-                RemoteView(remote: remote)
+                TrackView(remote: viewModel.remote)
+                RemoteView(remote: viewModel.remote)
             }
             Section(header: Text("Equipes en jeu")) {
                 ForEach(viewModel.buzzerPool.playingBuzzers) { buzzer in
@@ -53,7 +52,7 @@ struct QuizzerView: View {
                         Spacer()
                     }
                 }
-                NavigationLink(destination: ConfigEditView(viewModel: viewModel, remoteConfig: $remote.config)) {
+                NavigationLink(destination: ConfigEditView(viewModel: viewModel)) {
                     HStack {
                         Spacer()
                         Text("Configuration du jeu")
@@ -65,29 +64,32 @@ struct QuizzerView: View {
             }
         }
         .sheet(isPresented: $viewModel.buzzerPool.buzzPending) {
-            AnswerView(viewModel: viewModel, remote: remote)
+            AnswerView(viewModel: viewModel)
                 .onAppear() {
-                    remote.pause()
+                    viewModel.remote.pause()
                     viewModel.lastBuzzerLedBlink(blinkCount: 30)
                     AssetSounds.instance.play(name: viewModel.buzzerPool.lastBuzz?.teamSound ?? "")
                 }
         }
-        .sheet(isPresented: $remote.hasError) {
+        .sheet(isPresented: $viewModel.remote.hasError) {
             VStack {
                 Text("Erreur")
                     .font(.custom("_custom_", size: 36))
                 Text("")
-                Text(remote.errorMessage)
+                Text(viewModel.remote.errorMessage)
             }
         }
         .onAppear {
-            viewModel.start(playingSubject: remote.playingSubject, newTrackSubject: remote.newTrackSubject)
+            viewModel.start()
+        }
+        .onOpenURL { url in
+            viewModel.remote.connect(from: url)
         }
     }
 }
 
 struct QuizzerView_Previews: PreviewProvider {
     static var previews: some View {
-        QuizzerView(remote: SpotifyRemote())
+        QuizzerView()
     }
 }
