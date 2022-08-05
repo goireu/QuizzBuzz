@@ -22,44 +22,67 @@ struct AnswerView: View {
                 Section(header: Text("Equipe")) {
                     Text(viewModel.buzzerPool.lastBuzz == nil ? "" : viewModel.buzzerPool.lastBuzz!.teamName)
                 }
-                Section(header: Text("Mauvaise réponse?")) {
-                    Button("Pas de points") {
-                        answer(false)
-                    }
-                    .foregroundColor(.accentColor)
-                }
-                Section(header: Text("Bonne réponse?")) {
-                    Button("+1 point") {
-                        answer(true, addPoints: 1)
-                    }
-                    .foregroundColor(.accentColor)
-                    Button("+2 point") {
-                        answer(true, addPoints: 2)
-                    }
-                    .foregroundColor(.accentColor)
-                    Button("+3 point") {
-                        answer(true, addPoints: 3)
-                    }
-                    .foregroundColor(.accentColor)
-                    Button("+4 point") {
-                        answer(true, addPoints: 4)
-                    }
-                    .foregroundColor(.accentColor)
-                    Button("+5 point") {
-                        answer(true, addPoints: 5)
-                    }
-                    .foregroundColor(.accentColor)
-                }
             }
             .font(.headline)
+            HStack {
+                List {
+                    Section(header: Text("Continuer")) {
+                        Button("Incorrect") {
+                            answer(false, nextTrack: false)
+                        }
+                        Button("+1 Point") {
+                            answer(true, nextTrack: false, addPoints: 1)
+                        }
+                        Button("+2 Points") {
+                            answer(true, nextTrack: false, addPoints: 2)
+                        }
+                        Button("+3 Points") {
+                            answer(true, nextTrack: false, addPoints: 3)
+                        }
+                        Button("+4 Points") {
+                            answer(true, nextTrack: false, addPoints: 4)
+                        }
+                        Button("+5 Points") {
+                            answer(true, nextTrack: false, addPoints: 5)
+                        }
+                    }
+                }
+                .font(.headline)
+                List {
+                    Section(header: Text("Suivant")) {
+                        Button("Incorrect") {
+                            answer(false, nextTrack: true)
+                        }
+                        Button("+1 Point") {
+                            answer(true, nextTrack: true, addPoints: 1)
+                        }
+                        Button("+2 Points") {
+                            answer(true, nextTrack: true, addPoints: 2)
+                        }
+                        Button("+3 Points") {
+                            answer(true, nextTrack: true, addPoints: 3)
+                        }
+                        Button("+4 Points") {
+                            answer(true, nextTrack: true, addPoints: 4)
+                        }
+                        Button("+5 Points") {
+                            answer(true, nextTrack: true, addPoints: 5)
+                        }
+                    }
+                }
+                .font(.headline)
+            }
         }
     }
     
-    private func answer(_ correct: Bool, addPoints: Int = 0) {
+    private func answer(_ correct: Bool, nextTrack: Bool, addPoints: Int = 0) {
         if correct {
             viewModel.correctAnswer(addPoints: addPoints)
         } else {
             viewModel.wrongAnswer()
+        }
+        if nextTrack {
+            viewModel.remote.next()
         }
     }
 }
