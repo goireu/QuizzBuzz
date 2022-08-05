@@ -43,7 +43,7 @@ struct QuizzerView: View {
                 }
               }
             Section(header: Text("Configuration")) {
-                NavigationLink(destination: BuzzerListView(buzzerPool: $viewModel.buzzerPool)) {
+                NavigationLink(destination: BuzzerListView(viewModel: viewModel)) {
                     HStack {
                         Spacer()
                         Text("Configuration des buzzers")

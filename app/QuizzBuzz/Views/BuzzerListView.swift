@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct BuzzerListView: View {
-    @Binding var buzzerPool: BuzzerPool
+    @ObservedObject var viewModel: QuizzerViewModel
 
     var body: some View {
         List {
-            ForEach($buzzerPool.buzzers) { $buzzer in
+            ForEach($viewModel.buzzerPool.buzzers) { $buzzer in
                 NavigationLink(destination: BuzzerEditView(buzzer: $buzzer)) {
                     VStack {
                         HStack {
@@ -24,10 +24,14 @@ struct BuzzerListView: View {
                             Spacer()
                         }
                         HStack {
-                            Label("Signal: \(buzzer.signal)", systemImage: "dot.radiowaves.left.and.right")
+                            Label("\(buzzer.signal)", systemImage: "dot.radiowaves.left.and.right")
                                 .font(.caption)
                             Spacer()
-                            Label("Piles: \(buzzer.battery)", systemImage: "battery.100")
+                            let handicapInMs = Int(viewModel.buzzerHandicapDelay(teamPointsInt: buzzer.teamPointsInt) * 1000)
+                            Label("\(handicapInMs) ms", systemImage: "clock.fill")
+                                .font(.caption)
+                            Spacer()
+                            Label("\(buzzer.battery)", systemImage: "battery.100")
                                 .font(.caption)
                         }
                         .padding(1)
@@ -43,15 +47,15 @@ struct BuzzerListView: View {
     }
 
     func delete(at offsets: IndexSet) {
-        let ids = offsets.map { buzzerPool.buzzers[$0].id }
-        ids.forEach { buzzerPool.removeBuzzer(buzzerID: $0) }
+        let ids = offsets.map { viewModel.buzzerPool.buzzers[$0].id }
+        ids.forEach { viewModel.buzzerPool.removeBuzzer(buzzerID: $0) }
     }
 }
 
 struct BuzzerListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BuzzerListView(buzzerPool: .constant(BuzzerPool.sampleData))
+            BuzzerListView(viewModel: QuizzerViewModel(buzzerPool: BuzzerPool.sampleData))
         }
     }
 }

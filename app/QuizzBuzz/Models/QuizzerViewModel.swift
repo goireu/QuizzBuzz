@@ -84,8 +84,12 @@ final class QuizzerViewModel: ObservableObject {
         guard let idx = buzzerPool.buzzerIndex(buzzerID: buzzerID) else { return 0 }
         return buzzerHandicapDelay(teamPointsInt: buzzerPool.buzzers[idx].teamPointsInt)
     }
-    private func buzzerHandicapDelay(teamPointsInt: Int) -> Double {
-        return Double(teamPointsInt - gameMinPoints) * Double(buzzerPool.handicapInMs / 1000)
+    func buzzerHandicapDelay(teamPointsInt: Int) -> Double {
+        let delay = Double(teamPointsInt - gameMinPoints) * Double(buzzerPool.handicapInMs / 1000)
+        if delay < 0 {
+            return 0
+        }
+        return delay
     }
     
     private func onNewTrack() {
