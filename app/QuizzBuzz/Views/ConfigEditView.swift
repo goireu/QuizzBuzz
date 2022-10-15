@@ -22,7 +22,7 @@ struct ConfigEditView: View {
             Section(footer: Text("Pour chaque point d'écart avec le score le plus bas, le buzzer sera désactivé en début de chanson de ce délai.")) {
                 HStack {
                     Text("Handicap:")
-                    Slider(value: $viewModel.buzzerPool.handicapInMs, in: 0...500, step: 50)
+                    Slider(value: $viewModel.buzzerPool.handicapInMs, in: 0...1000, step: 100)
                     Text("\(Int(viewModel.buzzerPool.handicapInMs)) ms")
                 }
             }

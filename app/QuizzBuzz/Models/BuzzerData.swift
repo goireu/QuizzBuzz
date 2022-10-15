@@ -54,14 +54,16 @@ struct BuzzerData: Codable {
     var teamColor: TeamColor
     var teamPlaying: Bool
     var teamSound: String
+    var buzzCount: Int
 
-    init(id: UUID, teamName: String, teamPoints: String, teamColor: TeamColor, teamPlaying:Bool, teamSound: String) {
+    init(id: UUID, teamName: String, teamPoints: String, teamColor: TeamColor, teamPlaying:Bool, teamSound: String, buzzCount: Int) {
         self.id = id
         self.teamName = teamName
         self.teamPoints = teamPoints
         self.teamColor = teamColor
         self.teamPlaying = teamPlaying
         self.teamSound = teamSound
+        self.buzzCount = 0
     }
 }
 
@@ -72,6 +74,7 @@ struct Buzzer : Identifiable {
     var teamColor: Color
     var teamPlaying: Bool
     var teamSound: String
+    var buzzCount: Int
 
     var batteryVoltage: Double?
     var rssi: Int?
@@ -86,6 +89,7 @@ struct Buzzer : Identifiable {
         self.teamColor = Color.random
         self.teamPlaying = true // TODO: change me
         self.teamSound = ""
+        self.buzzCount = 0
         self.hasBuzzed = false
         self.isConnected = true
     }
@@ -98,12 +102,13 @@ struct Buzzer : Identifiable {
         self.teamColor = data.teamColor.color
         self.teamPlaying = data.teamPlaying
         self.teamSound = data.teamSound
+        self.buzzCount = data.buzzCount
         self.hasBuzzed = false
         self.isConnected = false
     }
     // Exports Buzzer to storage
     func data() -> BuzzerData {
-        return BuzzerData(id: self.id, teamName: self.teamName, teamPoints: self.teamPoints, teamColor: TeamColor(color: self.teamColor), teamPlaying: self.teamPlaying, teamSound: self.teamSound)
+        return BuzzerData(id: self.id, teamName: self.teamName, teamPoints: self.teamPoints, teamColor: TeamColor(color: self.teamColor), teamPlaying: self.teamPlaying, teamSound: self.teamSound, buzzCount: self.buzzCount)
     }
     
     mutating func setConnected(_ isConnected: Bool) {
@@ -122,7 +127,10 @@ struct Buzzer : Identifiable {
             self.teamPoints = "0"
         }
     }
-    
+    mutating func buzzCountIncrement() {
+        self.buzzCount += 1
+    }
+
     var signal: String {
         guard isConnected else { return "déconnecté" }
         guard let db = rssi else { return "?? dB"}
@@ -236,9 +244,19 @@ struct BuzzerPool {
             buzzers[idx].updateBatteryVolatge(batteryVoltage: batteryVoltage)
         }
     }
-    mutating func buzz(buzzerID: UUID) {
+    mutating func buzz(buzzerID: UUID, isPlaying: Bool, handicapFinished: Bool) {
         guard let idx = buzzerIndex(buzzerID: buzzerID, createOnMissing: true) else { return }
         
+        buzzers[idx].buzzCountIncrement()
+        // Ignore buzzer while music is stopped
+        if isPlaying == false {
+            return
+        }
+        // Not allowed to play during handicap time
+        if handicapFinished == false {
+            return
+        }
+        // Buzz is allowed, process it
         lastPress = buzzers[idx]
         if !buzzers[idx].hasBuzzed && !buzzPending {
             lastBuzz = buzzers[idx]
@@ -270,6 +288,7 @@ struct BuzzerPool {
             buzzers[idx].hasBuzzed = false
             if clearScores {
                 buzzers[idx].teamPoints = "0"
+                buzzers[idx].buzzCount = 0
             }
         }
     }

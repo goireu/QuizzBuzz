@@ -31,6 +31,9 @@ struct BuzzerListView: View {
                             Label("\(handicapInMs) ms", systemImage: "clock.fill")
                                 .font(.caption)
                             Spacer()
+                            Label("\(buzzer.buzzCount)", systemImage: "hands.clap.fill")
+                                .font(.caption)
+                            Spacer()
                             Label("\(buzzer.battery)", systemImage: "battery.100")
                                 .font(.caption)
                         }

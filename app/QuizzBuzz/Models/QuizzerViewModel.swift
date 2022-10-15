@@ -94,7 +94,6 @@ final class QuizzerViewModel: ObservableObject {
     
     private func onNewTrack() {
         buzzerPool.resetBuzzs(clearScores: false)
-        if buzzerPool.handicapInMs > 0 {
             // Store current time
             trackStartTime = Date()
             // Switch on/off leds and start timer for buzzers with handicap
@@ -112,7 +111,6 @@ final class QuizzerViewModel: ObservableObject {
                     self.manager.ledOff(identifier: buzzer.id)
                 }
             }
-        }
     }
 
     private var started = false;
@@ -171,11 +169,10 @@ final class QuizzerViewModel: ObservableObject {
         .store(in: &cancellables)
         // Device Buzz!
         manager.buzzSubject.sink { [weak self] in
-            if self != nil && self!.isPlaying {
-                // The buzzer is not allowed to buzz before its handicap time
-                if self!.trackStartTime.timeIntervalSinceNow > self!.buzzerHandicapDelay(buzzerID: $0) {
-                    self!.buzzerPool.buzz(buzzerID: $0)
-                }
+            if self != nil {
+                // Compute whether the buzz happened during handicap time and call buzz()
+                let handicapFinished = -(self!.trackStartTime.timeIntervalSinceNow) > self!.buzzerHandicapDelay(buzzerID: $0)
+                self!.buzzerPool.buzz(buzzerID: $0, isPlaying: self!.isPlaying, handicapFinished: handicapFinished)
             }
             print("DEVICE \($0) BUZZED!")
         }

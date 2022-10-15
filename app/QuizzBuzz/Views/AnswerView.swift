@@ -39,12 +39,6 @@ struct AnswerView: View {
                         Button("+3 Points") {
                             answer(true, nextTrack: false, addPoints: 3)
                         }
-                        Button("+4 Points") {
-                            answer(true, nextTrack: false, addPoints: 4)
-                        }
-                        Button("+5 Points") {
-                            answer(true, nextTrack: false, addPoints: 5)
-                        }
                     }
                 }
                 .font(.headline)
@@ -62,12 +56,6 @@ struct AnswerView: View {
                         Button("+3 Points") {
                             answer(true, nextTrack: true, addPoints: 3)
                         }
-                        Button("+4 Points") {
-                            answer(true, nextTrack: true, addPoints: 4)
-                        }
-                        Button("+5 Points") {
-                            answer(true, nextTrack: true, addPoints: 5)
-                        }
                     }
                 }
                 .font(.headline)
@@ -83,6 +71,8 @@ struct AnswerView: View {
         }
         if nextTrack {
             viewModel.remote.next()
+        } else {
+            viewModel.remote.pauseResume()
         }
     }
 }
