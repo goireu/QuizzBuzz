@@ -1,1 +1,4 @@
 .vscode
+Podfile.lock
+Pods
+xcshareddata
