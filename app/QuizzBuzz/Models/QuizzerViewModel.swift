@@ -14,9 +14,11 @@ final class QuizzerViewModel: ObservableObject {
     
     private lazy var manager: BluetoothManager = .shared
     private lazy var cancellables: Set<AnyCancellable> = .init()
+    private lazy var scorePublisher = ScorePublisher()
 
     init(buzzerPool: BuzzerPool = BuzzerPool()) {
         self.buzzerPool = buzzerPool
+        scorePublisher.publishScores(buzzers: buzzerPool.buzzers)
     }
     
     private var isPlaying = false
@@ -52,12 +54,16 @@ final class QuizzerViewModel: ObservableObject {
         allBuzzerLedOff();
         // Reset internal state so they can play again
         buzzerPool.resetBuzzs(clearScores: clearScores)
+        if clearScores {
+            scorePublisher.publishScores(buzzers: buzzerPool.buzzers)
+        }
     }
     
     func correctAnswer(addPoints: Int) {
         allBuzzerLedOn()
         buzzerPool.setAllBuzzed()
         buzzerPool.clearLastBuzz(addPoints: addPoints)
+        scorePublisher.publishScores(buzzers: buzzerPool.buzzers)
     }
     func wrongAnswer() {
         // No need to clear the hasBuzzed flag of the buzzer,

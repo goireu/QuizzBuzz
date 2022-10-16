@@ -1,0 +1,6 @@
+use_frameworks!
+
+target 'QuizzBuzz' do
+    pod 'CocoaMQTT'
+    platform :ios, '15.2'
+end
